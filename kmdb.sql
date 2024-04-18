@@ -162,7 +162,7 @@ INSERT INTO Actors (name) VALUES
 INSERT INTO MovieActor (movie_id, actor_id, character_name) VALUES
 (1, 1, 'Bruce Wayne'),
 (1, 2, 'Alfred'),
-(1, 3, 'Ras Al Ghul'),
+(1, 3, "Ra's Al Ghul"),
 (1, 4, 'Rachel Dawes'),
 (1, 5, 'Commissioner Gordon'),
 (2, 1, 'Bruce Wayne'),
