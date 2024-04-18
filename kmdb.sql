@@ -197,5 +197,5 @@ JOIN Studios s ON m.studio_id = s.studio_id;
 SELECT m.title, a.name AS actor_name, ma.character_name
 FROM MovieActor ma
 JOIN Movies m ON ma.movie_id = m.movie_id
-JOIN Actors a ON ma.actor_id = a.actor_id
-ORDER BY m.title, a.name;
+JOIN Actors a ON ma.actor_id = a.actor_id;
+--ORDER BY m.title, a.name;
