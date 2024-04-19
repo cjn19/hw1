@@ -112,31 +112,31 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 DROP TABLE IF EXISTS Movies;
-DROP TABLE IF EXISTS Actors;
 DROP TABLE IF EXISTS Studios;
+DROP TABLE IF EXISTS Actors;
 DROP TABLE IF EXISTS MovieActor;
 
 -- Create new tables, according to your domain model
 CREATE TABLE Movies (
-    movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    movie_title TEXT,
     year_released INTEGER,
     mpaa_rating TEXT,
     studio_id INTEGER
 );
 
 CREATE TABLE Studios (
-    studio_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name_studio TEXT
 );
 
 CREATE TABLE Actors (
-    actor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name_actor TEXT
 );
 
 CREATE TABLE MovieActor (
-    character_id INTEGER PRIMARY KEY INCREMENT
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     movie_id INTEGER,
     actor_id INTEGER,
     character_name TEXT
@@ -145,14 +145,14 @@ CREATE TABLE MovieActor (
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 
-INSERT INTO Movies (title, year_released, mpaa_rating, studio_id) VALUES
+INSERT INTO Movies (movie_title, year_released, mpaa_rating, studio_id) VALUES
 ('Batman Begins', 2005, 'PG-13', 1),
 ('The Dark Knight', 2008, 'PG-13', 1),
 ('The Dark Knight Rises', 2012, 'PG-13', 1);
 
-INSERT INTO Studios (name) VALUES ('Warner Bros.');
+INSERT INTO Studios (name_studio) VALUES ('Warner Bros.');
 
-INSERT INTO Actors (name) VALUES
+INSERT INTO Actors (name_actor) VALUES
 ('Christian Bale'), ('Michael Caine'), ('Liam Neeson'), ('Katie Holmes'),
 ('Gary Oldman'), ('Heath Ledger'), ('Aaron Eckhart'), ('Maggie Gyllenhaal'),
 ('Tom Hardy'), ('Joseph Gordon-Levitt'), ('Anne Hathaway');
@@ -181,9 +181,9 @@ INSERT INTO MovieActor (movie_id, actor_id, character_name) VALUES
 .print ""
 
 -- The SQL statement for the movies output
-SELECT title, year_released, mpaa_rating, name_studio
+SELECT movie_title, year_released, mpaa_rating, name_studio
 FROM Movies
-JOIN Studios ON Movies.studio_id = studios_id;
+JOIN Studios ON Movies.studio_id = studios.id;
 
 -- Prints a header for the cast output
 .print ""
@@ -192,7 +192,7 @@ JOIN Studios ON Movies.studio_id = studios_id;
 .print ""
 
 -- The SQL statement for the cast output
-SELECT title, name_actor, character_name
+SELECT movie_title, name_actor, character_name
 FROM Movies
-JOIN Movies ON movie_id = MovieActor.movie_id
-JOIN Actors ON actor_id = MovieActor.actor_id;
+JOIN MovieActor ON Movies.id = MovieActor.movie_id
+JOIN Actors ON Actors.id = MovieActor.actor_id;
