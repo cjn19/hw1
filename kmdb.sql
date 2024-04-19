@@ -113,8 +113,8 @@
 -- Drop existing tables, so you'll start fresh each time this script is run.
 DROP TABLE IF EXISTS Movies;
 DROP TABLE IF EXISTS Actors;
-DROP TABLE IF EXISTS MovieActor;
 DROP TABLE IF EXISTS Studios;
+DROP TABLE IF EXISTS MovieActor;
 
 -- Create new tables, according to your domain model
 CREATE TABLE Movies (
@@ -122,37 +122,35 @@ CREATE TABLE Movies (
     title TEXT,
     year_released INTEGER,
     mpaa_rating TEXT,
-    studio_id INTEGER,
-    FOREIGN KEY (studio_id) REFERENCES Studios(studio_id)
+    studio_id INTEGER
 );
 
 CREATE TABLE Studios (
     studio_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT
+    name_studio TEXT
 );
 
 CREATE TABLE Actors (
     actor_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT
+    name_actor TEXT
 );
 
 CREATE TABLE MovieActor (
+    character_id INTEGER PRIMARY KEY INCREMENT
     movie_id INTEGER,
     actor_id INTEGER,
-    character_name TEXT,
-    PRIMARY KEY (movie_id, actor_id),
-    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
-    FOREIGN KEY (actor_id) REFERENCES Actors(actor_id)
+    character_name TEXT
 );
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
-INSERT INTO Studios (name) VALUES ('Warner Bros.');
 
 INSERT INTO Movies (title, year_released, mpaa_rating, studio_id) VALUES
 ('Batman Begins', 2005, 'PG-13', 1),
 ('The Dark Knight', 2008, 'PG-13', 1),
 ('The Dark Knight Rises', 2012, 'PG-13', 1);
+
+INSERT INTO Studios (name) VALUES ('Warner Bros.');
 
 INSERT INTO Actors (name) VALUES
 ('Christian Bale'), ('Michael Caine'), ('Liam Neeson'), ('Katie Holmes'),
@@ -183,9 +181,9 @@ INSERT INTO MovieActor (movie_id, actor_id, character_name) VALUES
 .print ""
 
 -- The SQL statement for the movies output
-SELECT m.title, m.year_released, m.mpaa_rating, s.name AS studio
-FROM Movies m
-JOIN Studios s ON m.studio_id = s.studio_id;
+SELECT title, year_released, mpaa_rating, name_studio
+FROM Movies
+JOIN Studios ON Movies.studio_id = studios_id;
 
 -- Prints a header for the cast output
 .print ""
@@ -194,8 +192,7 @@ JOIN Studios s ON m.studio_id = s.studio_id;
 .print ""
 
 -- The SQL statement for the cast output
-SELECT m.title, a.name AS actor_name, ma.character_name
-FROM MovieActor ma
-JOIN Movies m ON ma.movie_id = m.movie_id
-JOIN Actors a ON ma.actor_id = a.actor_id;
---ORDER BY m.title, a.name;
+SELECT title, name_actor, character_name
+FROM Movies
+JOIN Movies ON movie_id = MovieActor.movie_id
+JOIN Actors ON actor_id = MovieActor.actor_id;
