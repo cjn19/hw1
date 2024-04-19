@@ -111,17 +111,12 @@
 .headers off
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
-DROP TABLE IF EXISTS MovieActor;
-DROP TABLE IF EXISTS Actors;
 DROP TABLE IF EXISTS Movies;
+DROP TABLE IF EXISTS Actors;
+DROP TABLE IF EXISTS MovieActor;
 DROP TABLE IF EXISTS Studios;
 
 -- Create new tables, according to your domain model
-CREATE TABLE Studios (
-    studio_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT
-);
-
 CREATE TABLE Movies (
     movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
@@ -129,6 +124,11 @@ CREATE TABLE Movies (
     mpaa_rating TEXT,
     studio_id INTEGER,
     FOREIGN KEY (studio_id) REFERENCES Studios(studio_id)
+);
+
+CREATE TABLE Studios (
+    studio_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
 );
 
 CREATE TABLE Actors (
