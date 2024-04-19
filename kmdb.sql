@@ -119,27 +119,27 @@ DROP TABLE IF EXISTS Studios;
 -- Create new tables, according to your domain model
 CREATE TABLE Studios (
     studio_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL
+    name TEXT
 );
 
 CREATE TABLE Movies (
     movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    year_released INTEGER NOT NULL,
-    mpaa_rating TEXT NOT NULL,
-    studio_id INTEGER NOT NULL,
+    title TEXT,
+    year_released INTEGER,
+    mpaa_rating TEXT,
+    studio_id INTEGER,
     FOREIGN KEY (studio_id) REFERENCES Studios(studio_id)
 );
 
 CREATE TABLE Actors (
     actor_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL
+    name TEXT
 );
 
 CREATE TABLE MovieActor (
-    movie_id INTEGER NOT NULL,
-    actor_id INTEGER NOT NULL,
-    character_name TEXT NOT NULL,
+    movie_id INTEGER,
+    actor_id INTEGER,
+    character_name TEXT,
     PRIMARY KEY (movie_id, actor_id),
     FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
     FOREIGN KEY (actor_id) REFERENCES Actors(actor_id)
