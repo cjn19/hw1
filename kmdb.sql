@@ -128,7 +128,7 @@ CREATE TABLE Movies (
     year_released INTEGER,
     mpaa_rating TEXT,
     studio_id INTEGER,
-    --FOREIGN KEY (studio_id) REFERENCES Studios(studio_id)
+    FOREIGN KEY (studio_id) REFERENCES Studios(studio_id)
 );
 
 CREATE TABLE Actors (
@@ -140,9 +140,9 @@ CREATE TABLE MovieActor (
     movie_id INTEGER,
     actor_id INTEGER,
     character_name TEXT,
-    --PRIMARY KEY (movie_id, actor_id),
-    --FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
-    --FOREIGN KEY (actor_id) REFERENCES Actors(actor_id)
+    PRIMARY KEY (movie_id, actor_id),
+    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
+    FOREIGN KEY (actor_id) REFERENCES Actors(actor_id)
 );
 
 -- Insert data into your database that reflects the sample data shown above
